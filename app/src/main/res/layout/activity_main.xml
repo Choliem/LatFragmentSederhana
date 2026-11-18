@@ -7,15 +7,30 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <ToggleButton
-        android:id="@+id/btnToggleLayout"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_margin="8dp"
-        android:textOn="List View"
-        android:textOff="Grid View"
-        android:checked="false" />
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <Button
+            android:id="@+id/btnTambahData"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="+ Tambah Data" />
+
+        <ToggleButton
+            android:id="@+id/btnToggleLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textOn="List View"
+            android:textOff="Grid View"
+            android:checked="false" />
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
