@@ -8,6 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import choliem.paba.latrecyclerview.databinding.ActivityMainBinding
@@ -69,6 +70,10 @@ class MainActivity : AppCompatActivity() {
             )
         } else {
             binding.rvWayang.layoutManager = LinearLayoutManager(this)
+        }
+
+        binding.rvWayang.itemAnimator = DefaultItemAnimator().apply {
+            removeDuration = 400L
         }
 
         val adapterWayang = AdapterRecView(_arWayang)
