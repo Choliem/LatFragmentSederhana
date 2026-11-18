@@ -5,8 +5,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import choliem.paba.latrecyclerview.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -60,7 +60,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun tampilkanData() {
         if (binding.btnToggleLayout.isChecked) {
-            binding.rvWayang.layoutManager = GridLayoutManager(this, 2)
+            binding.rvWayang.layoutManager = StaggeredGridLayoutManager(
+                2,
+                LinearLayoutManager.VERTICAL
+            )
         } else {
             binding.rvWayang.layoutManager = LinearLayoutManager(this)
         }
