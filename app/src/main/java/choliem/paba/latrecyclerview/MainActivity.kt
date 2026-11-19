@@ -2,6 +2,8 @@ package choliem.paba.latrecyclerview
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
@@ -39,6 +41,10 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnToggleLayout.setOnCheckedChangeListener { _, isChecked ->
             tampilkanData()
+        }
+
+        binding.btnTambahData.setOnClickListener {
+            inputDataBaru()
         }
     }
 
@@ -108,5 +114,46 @@ class MainActivity : AppCompatActivity() {
             }
         })
         binding.rvWayang.adapter = adapterWayang
+    }
+
+    private fun inputDataBaru() {
+        val etNama = EditText(this).apply { hint = "Nama wayang" }
+        val etKarakter = EditText(this).apply { hint = "Karakter (contoh: Pandawa)" }
+        val etDeskripsi = EditText(this).apply { hint = "Deskripsi" }
+        val etFoto = EditText(this).apply { hint = "URL gambar (boleh kosong)" }
+
+        val layout = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            setPadding(50, 20, 50, 0)
+            addView(etNama)
+            addView(etKarakter)
+            addView(etDeskripsi)
+            addView(etFoto)
+        }
+
+        AlertDialog.Builder(this)
+            .setTitle("Tambah Data Wayang")
+            .setView(layout)
+            .setPositiveButton("Simpan") { _, _ ->
+                val nama = etNama.text.toString().trim()
+                if (nama.isEmpty()) {
+                    Toast.makeText(this, "Nama wajib diisi", Toast.LENGTH_SHORT).show()
+                    return@setPositiveButton
+                }
+
+                val wayangBaru = DcWayang(
+                    foto = etFoto.text.toString().trim(),
+                    nama = nama,
+                    karakter = etKarakter.text.toString().trim(),
+                    deskripsi = etDeskripsi.text.toString().trim()
+                )
+                _arWayang.add(wayangBaru)
+                binding.rvWayang.adapter?.notifyItemInserted(_arWayang.size - 1)
+                binding.rvWayang.scrollToPosition(_arWayang.size - 1)
+
+                Toast.makeText(this, "$nama berhasil ditambahkan", Toast.LENGTH_SHORT).show()
+            }
+            .setNegativeButton("Batal", null)
+            .show()
     }
 }
